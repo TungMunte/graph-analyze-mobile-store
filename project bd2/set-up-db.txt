@@ -1,0 +1,155 @@
+create table users(
+user_id INT primary key,
+first_name varchar2(20),
+last_name varchar2(20),
+user_name varchar2(20),
+pass_word varchar2(20),
+date_of_birth date,
+mail varchar2(30),
+user_type varchar2(10),
+location_id INT
+);
+
+create table location(
+location_id INT primary key,
+num_street INT,
+street varchar2(30),
+city varchar2(30),
+country varchar2(30)
+);
+
+create table packet(
+packet_id INT primary key,
+user_receiver_id INT,
+user_sender_id INT,
+date_send date,
+date_receive date
+);
+
+create table orders(
+order_id INT primary key,
+product_id INT,
+amount INT,
+packet_id INT
+);
+
+create table product(
+product_id INT primary key,
+ram INT,
+price INT,
+brand varchar2(20),
+screen_size INT,
+internal_memory INT,
+coupon_id INT
+);
+
+create table coupon(
+coupon_id INT primary key,
+date_start date,
+date_end date,
+reduce INT
+);
+
+alter table product 
+add constraint fk_product_coupon_id
+foreign key (coupon_id) 
+references coupon(coupon_id);
+
+alter table orders 
+add constraint fk_order_product_id
+foreign key (product_id) 
+references product(product_id);
+
+alter table orders 
+add constraint fk_order_packet_id
+foreign key (packet_id) 
+references packet(packet_id);
+
+alter table packet
+add constraint fk_packet_user_sender_id
+foreign key (user_sender_id) 
+references users(user_id);
+
+alter table packet
+add constraint fk_packet_user_receiver_id
+foreign key (user_receiver_id) 
+references users(user_id);
+
+alter table users
+add constraint fk_user_location_id
+foreign key (location_id) 
+references location(location_id);
+
+commit;
+
+create SEQUENCE users_id_seq start with 1;
+create SEQUENCE location_id_seq start with 1;
+create SEQUENCE order_id_seq start with 1;
+create SEQUENCE packet_id_seq start with 1;
+create SEQUENCE product_id_seq start with 1;
+create SEQUENCE coupon_id_seq start with 1;
+
+create or replace trigger insert_users
+before insert on users
+for each row
+begin
+    select users_id_seq.NEXTVAL
+    into : new.user_id
+    from dual;
+    DBMS_OUTPUT.put_line('new user');
+end;
+
+
+create or replace trigger insert_location
+before insert on location
+for each row
+begin
+    select location_id_seq.NEXTVAL
+    into : new.location_id
+    from dual;
+    DBMS_OUTPUT.put_line('new location');
+end;
+
+
+create or replace trigger insert_order
+before insert on orders
+for each row
+begin
+    select order_id_seq.NEXTVAL
+    into : new.order_id
+    from dual;
+    DBMS_OUTPUT.put_line('new order');
+end;
+
+
+create or replace trigger insert_packet
+before insert on packet
+for each row
+begin
+    select packet_id_seq.NEXTVAL
+    into : new.packet_id
+    from dual;
+    DBMS_OUTPUT.put_line('new packet');
+end;
+
+
+create or replace trigger insert_product
+before insert on product
+for each row
+begin
+    select product_id_seq.NEXTVAL
+    into : new.product_id
+    from dual;
+    DBMS_OUTPUT.put_line('new product');
+end;
+
+
+create or replace trigger insert_coupon
+before insert on coupon
+for each row
+begin
+    select coupon_id_seq.NEXTVAL
+    into : new.coupon_id
+    from dual;
+    DBMS_OUTPUT.put_line('new coupon');
+end;
