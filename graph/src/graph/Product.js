@@ -10,6 +10,7 @@ function Product() {
     async function report() {
       const response = await axios.get("http://localhost:8080/api/top5product");
       console.log(response.data);
+      console.log(response.data);
       setProduct(response.data);
       var listOfX = [];
       for (let i of product) {

@@ -1,6 +1,5 @@
 package com.example.demo.service.impl.impl;
 
-import com.example.demo.entity.Coupon;
 import com.example.demo.entity.ProductReport;
 import com.example.demo.entity.UserReport;
 import com.example.demo.procedure.ProcedureRepo;
@@ -20,11 +19,6 @@ public class ReportServiceImpl implements ReportService {
         this.procedureRepo = procedureRepo;
     }
 
-
-    @Override
-    public List<Coupon> demo() {
-        return procedureRepo.demo();
-    }
 
     @Override
     public List<ProductReport> top5Product() {

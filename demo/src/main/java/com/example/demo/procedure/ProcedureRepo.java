@@ -1,6 +1,5 @@
 package com.example.demo.procedure;
 
-import com.example.demo.entity.Coupon;
 import com.example.demo.entity.ProductReport;
 import com.example.demo.entity.UserReport;
 import jakarta.persistence.EntityManager;
@@ -15,15 +14,6 @@ import java.util.List;
 public class ProcedureRepo {
     @PersistenceContext
     private EntityManager entityManager;
-
-    public List<Coupon> demo() {
-        StoredProcedureQuery procedureQuery = entityManager.createStoredProcedureQuery("PRINT_CONTRACT", Coupon.class);
-        procedureQuery.registerStoredProcedureParameter("results", void.class, ParameterMode.REF_CURSOR);
-        procedureQuery.execute();
-        @SuppressWarnings("unchecked") List<Coupon> resultList = procedureQuery.getResultList();
-        resultList.forEach(System.out::println);
-        return resultList;
-    }
 
     public List<ProductReport> top5Product() {
         StoredProcedureQuery procedureQuery = entityManager.createStoredProcedureQuery("TOP_5_PRODUCT", ProductReport.class);

@@ -12,6 +12,7 @@ function UserWithoutCoupon() {
         "http://localhost:8080/api/top5userWithoutCoupon"
       );
       console.log(response.data);
+      console.log(response.data);
       setProduct(response.data);
       var listOfX = [];
       for (let i of product) {

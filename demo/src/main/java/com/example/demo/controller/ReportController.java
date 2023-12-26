@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Coupon;
 import com.example.demo.entity.ProductReport;
 import com.example.demo.entity.UserReport;
 import com.example.demo.service.impl.ReportService;
@@ -19,11 +18,6 @@ public class ReportController {
 
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
-    }
-
-    @GetMapping(value = "/api/demo")
-    public ResponseEntity<List<Coupon>> demo() {
-        return new ResponseEntity<>(reportService.demo(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/api/top5product")
